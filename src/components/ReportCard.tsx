@@ -12,7 +12,15 @@ interface ReportCardProps {
 
 export const ReportCard: React.FC<ReportCardProps> = ({ title, loading = false, onEdit, onSummarize }) => {
 	return (
-		<Card elevation={3} sx={{ height: 260, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+		<Card elevation={3} 
+      sx={{ 
+        height: { xs: 140, sm: 260 },
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
       {!loading && (
         <>
         <Tooltip title="Edit Report">

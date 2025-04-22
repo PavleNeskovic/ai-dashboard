@@ -1,11 +1,12 @@
 import React from 'react';
 import {
 	DndContext,
-	PointerSensor,
+	closestCenter,
 	useSensor,
 	useSensors,
-	closestCenter,
-	DragEndEvent,
+	PointerSensor,
+	TouchSensor,
+  DragEndEvent,
 } from '@dnd-kit/core';
 import {
 	SortableContext,
@@ -29,7 +30,15 @@ export const SortableReportGrid: React.FC<SortableGridProps> = ({
 	onSummarize,
 }) => {
 	const { reports, setReports } = useReportContext();
-	const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor), // still good for desktop
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    })
+  );
 
 	const filtered = reports.filter((r) =>
 		r.title.toLowerCase().includes(searchTerm.toLowerCase())
