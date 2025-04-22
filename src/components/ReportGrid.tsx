@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid } from '@mui/material';
-import { ReportCard } from './ReportCard';
+import { Grid, Typography } from '@mui/material';
 import { Report } from '../context/ReportContext';
 import { SortableReportCard } from './SortableReportCard';
 
@@ -15,18 +14,25 @@ export const ReportGrid: React.FC<ReportGridProps> = ({
 	onEdit,
 	onSummarize,
 }) => (
-	<Grid container spacing={2} mt={4}>
-		{reports.map((report) => (
-			<Grid size={{ xs: 12, sm: 3 }} key={report.id}>
-      <SortableReportCard
-        key={report.id}
-        report={report}
-        onEdit={onEdit}
-        onSummarize={onSummarize}
-      />
-			</Grid>
-		))}
-	</Grid>
+  <>
+    {reports.length === 0 && (
+      <Typography variant="h6" align="center" mt={4}>
+        No reports available.
+      </Typography>
+    )}
+    <Grid container spacing={2} mt={4}>
+      {reports.map((report) => (
+        <Grid size={{ xs: 12, sm: 3 }} key={report.id}>
+        <SortableReportCard
+          key={report.id}
+          report={report}
+          onEdit={onEdit}
+          onSummarize={onSummarize}
+        />
+        </Grid>
+      ))}
+    </Grid>
+  </>
 );
             
   

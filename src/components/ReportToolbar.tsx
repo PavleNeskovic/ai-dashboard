@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, IconButton, Tooltip, TextField } from '@mui/material';
-import SortIcon from '@mui/icons-material/Sort';
-import FilterListIcon from '@mui/icons-material/FilterList';
+import { Box, Button, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { useRole } from '../context/RoleContext';
 
 interface ReportToolbarProps {
 	onAdd: () => void;
@@ -10,43 +9,49 @@ interface ReportToolbarProps {
 	onSearchChange: (value: string) => void;
 }
 
-export const ReportToolbar: React.FC<ReportToolbarProps> = ({ onAdd, searchTerm, onSearchChange }) => {
+export const ReportToolbar: React.FC<ReportToolbarProps> = ({
+	onAdd,
+	searchTerm,
+	onSearchChange,
+}) => {
+  const { role } = useRole();
+  const isAdmin = role === 'Admin';
+
 	return (
 		<Box
 			display="flex"
-			justifyContent="space-between"
+			justifyContent="flex-end"
 			alignItems="center"
-      my={2}
-			py={2}
-			sx={{ borderTop: '1px solid #ddd' }}
-			gap={2}
+			my={2}
 			flexWrap="wrap"
+			gap={2}
 		>
 			<TextField
 				size="small"
 				variant="outlined"
-				placeholder="Search reports by title..."
+				placeholder="Search reports..."
 				value={searchTerm}
 				onChange={(e) => onSearchChange(e.target.value)}
-				sx={{ flexGrow: 1, minWidth: 200 }}
+        sx={{
+          width: { xs: '100%', sm: 200, md: 250 },
+        }}
 			/>
-			<Box display="flex" gap={1}>
-				<Tooltip title="Sort">
-					<IconButton color="primary">
-						<SortIcon />
-					</IconButton>
-				</Tooltip>
-				<Tooltip title="Filter">
-					<IconButton color="primary">
-						<FilterListIcon />
-					</IconButton>
-				</Tooltip>
-				<Tooltip title="Add Report">
-					<IconButton color="primary" onClick={onAdd}>
-						<AddIcon />
-					</IconButton>
-				</Tooltip>
-			</Box>
+      {isAdmin && (
+        <Button
+          variant="outlined"
+          color="inherit"
+          startIcon={<AddIcon />}
+          onClick={onAdd}
+          sx={{
+            width: { xs: '100%', sm: 200, md: 250 },
+            whiteSpace: 'nowrap',
+            fontWeight: 500,
+            color: 'primary.main',
+          }}
+        >
+          Create Report
+        </Button>
+      )}
 		</Box>
 	);
 };

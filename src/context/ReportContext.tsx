@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 export interface Report {
 	id: string;
@@ -15,8 +15,14 @@ type ReportContextType = {
 const ReportContext = createContext<ReportContextType | undefined>(undefined);
 
 export const ReportProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [reports, setReports] = useState<Report[]>([]);
-
+  const [reports, setReports] = useState<Report[]>(() => {
+    const stored = localStorage.getItem('reports');
+    return stored ? JSON.parse(stored) : [];
+  });
+  
+  useEffect(() => {
+    localStorage.setItem('reports', JSON.stringify(reports));
+  }, [reports]);
 
   return (
     <ReportContext.Provider value={{ reports, setReports }}>

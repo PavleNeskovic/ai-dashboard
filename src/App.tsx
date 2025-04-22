@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Report, ReportProvider, useReportContext } from './context/ReportContext';
-import { Container, Typography, Box } from '@mui/material';
+import { RoleProvider, useRole } from './context/RoleContext';
+import { Container, Typography, Box, Divider } from '@mui/material';
 import { PromptInputBar } from './components/PromptInputBar';
 import { ReportGrid } from './components/ReportGrid';
 import { ReportForm } from './components/ReportForm';
 import { ReportToolbar } from './components/ReportToolbar';
 import { SortableReportGrid } from './components/SortableReportGrid';
 import { SummaryModal } from './components/SummaryModal';
+import { Navbar } from './components/Navbar';
+import { ActivityProvider } from './context/ActivityContext';
 
 const Dashboard = () => {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [editReport, setEditReport] = useState<Report | null>(null);
 	const [showSummary, setShowSummary] = useState(false);
 	const [selectedContent, setSelectedContent] = useState('');
+  const { role } = useRole();
 
 	const handleCloseForm = () => setEditReport(null);
 
@@ -27,12 +31,17 @@ const Dashboard = () => {
 				/>
 			) : (
 				<>
-					<PromptInputBar />
-					<ReportToolbar
-						onAdd={() => setEditReport({ id: '', title: '', content: '' })}
-						searchTerm={searchTerm}
-						onSearchChange={setSearchTerm}
-					/>
+					{role === 'Admin' && (
+            <>
+              <PromptInputBar />
+              <Divider sx={{ my: 6 }} />
+              <ReportToolbar
+                onAdd={() => setEditReport({ id: '', title: '', content: '' })}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+              />
+            </>
+          )}
 					<SortableReportGrid
 						searchTerm={searchTerm}
 						onEdit={(r) => setEditReport(r)}
@@ -55,11 +64,16 @@ const Dashboard = () => {
 
 const App = () => {
 	return (
-		<ReportProvider>
-			<Container maxWidth="md">
-				<Dashboard />
-			</Container>
-		</ReportProvider>
+    <ActivityProvider>
+      <RoleProvider>
+        <ReportProvider>
+          <Container maxWidth="md">
+            <Navbar />
+            <Dashboard />
+          </Container>
+        </ReportProvider>
+      </RoleProvider>
+    </ActivityProvider>
 	);
 };
 
