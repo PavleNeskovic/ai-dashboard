@@ -5,11 +5,15 @@ import { PromptInputBar } from './components/PromptInputBar';
 import { ReportGrid } from './components/ReportGrid';
 import { ReportForm } from './components/ReportForm';
 import { ReportToolbar } from './components/ReportToolbar';
+import { SortableReportGrid } from './components/SortableReportGrid';
+import { SummaryModal } from './components/SummaryModal';
 
 const Dashboard = () => {
 	const { reports } = useReportContext();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [editReport, setEditReport] = useState<Report | null>(null);
+	const [showSummary, setShowSummary] = useState(false);
+	const [selectedContent, setSelectedContent] = useState('');
 
 	const handleCloseForm = () => setEditReport(null);
 
@@ -30,15 +34,26 @@ const Dashboard = () => {
 						searchTerm={searchTerm}
 						onSearchChange={setSearchTerm}
 					/>
-					<ReportGrid
+					<SortableReportGrid
 						searchTerm={searchTerm}
 						onEdit={(r) => setEditReport(r)}
+						onSummarize={(r) => {
+							setSelectedContent(r.content);
+							setShowSummary(true);
+						}}
 					/>
 				</>
 			)}
+
+			<SummaryModal
+				open={showSummary}
+				onClose={() => setShowSummary(false)}
+				content={selectedContent}
+			/>
 		</Box>
 	);
 };
+
 
 
 const App = () => {

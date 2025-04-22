@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, CircularProgress, Box, IconButton } from '@mui/material';
+import { Card, CardContent, Typography, CircularProgress, Box, IconButton, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ArticleIcon from '@mui/icons-material/Article';
 
@@ -15,20 +15,24 @@ export const ReportCard: React.FC<ReportCardProps> = ({ title, loading = false, 
 		<Card elevation={3} sx={{ height: 260, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {!loading && (
         <>
-        <IconButton
-					size="small"
-					onClick={onEdit}
-					sx={{ position: 'absolute', top: 4, right: 4 }}
-				>
-					<EditIcon fontSize="small" />
-				</IconButton>
-        <IconButton
+        <Tooltip title="Edit Report">
+          <IconButton
             size="small"
-            onClick={onSummarize}
-            sx={{ position: 'absolute', top: 36, right: 4 }}
+            onClick={onEdit}
+            sx={{ position: 'absolute', top: 4, right: 4 }}
           >
-            <ArticleIcon fontSize="small" />
-        </IconButton>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Summarize Report">
+          <IconButton
+              size="small"
+              onClick={onSummarize}
+              sx={{ position: 'absolute', top: 36, right: 4 }}
+            >
+              <ArticleIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
         </>
 				
 			)}
