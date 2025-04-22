@@ -18,7 +18,7 @@ export const ReportGrid: React.FC<ReportGridProps> = ({ searchTerm, onEdit }) =>
 	return (
 		<Grid container spacing={2} mt={4}>
       {filtered.map((report) => (
-          <Grid size={3}>
+          <Grid size={{ xs: 12, sm: 3 }} key={report.id}>
               <div>
                 <ReportCard title={report.title} loading={report.loading} onEdit={() => onEdit(report)} />
               </div>
