@@ -8,6 +8,7 @@ import {
 	IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { summarizeReportContent } from '../services/openaiService';
 
 interface SummaryModalProps {
 	open: boolean;
@@ -19,17 +20,17 @@ export const SummaryModal: React.FC<SummaryModalProps> = ({ open, onClose, conte
 	const [loading, setLoading] = useState(true);
 	const [summary, setSummary] = useState('');
 
-	useEffect(() => {
-		if (open) {
-			setLoading(true);
-			setSummary('');
-			const timer = setTimeout(() => {
-				setSummary(`This is a mock summary of the report content. First 100 characters: "${content.slice(0, 100)}..."`);
-				setLoading(false);
-			}, 1500);
-			return () => clearTimeout(timer);
-		}
-	}, [open, content]);
+  useEffect(() => {
+    if (open) {
+      setLoading(true);
+      setSummary('');
+  
+      summarizeReportContent(content)
+        .then((summaryText) => setSummary(summaryText))
+        .catch(() => setSummary('Failed to summarize.'))
+        .finally(() => setLoading(false));
+    }
+  }, [open, content]);
 
 	return (
 		<Modal open={open} onClose={onClose}>

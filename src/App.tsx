@@ -9,7 +9,6 @@ import { SortableReportGrid } from './components/SortableReportGrid';
 import { SummaryModal } from './components/SummaryModal';
 
 const Dashboard = () => {
-	const { reports } = useReportContext();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [editReport, setEditReport] = useState<Report | null>(null);
 	const [showSummary, setShowSummary] = useState(false);
@@ -53,8 +52,6 @@ const Dashboard = () => {
 		</Box>
 	);
 };
-
-
 
 const App = () => {
 	return (

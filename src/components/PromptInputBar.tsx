@@ -1,44 +1,47 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, CircularProgress } from '@mui/material';
 import { Report, useReportContext } from '../context/ReportContext';
+import { generateReportFromPrompt } from '../services/openaiService';
 
 export const PromptInputBar = () => {
 	const { reports, setReports } = useReportContext();
 	const [prompt, setPrompt] = useState('');
 	const [loading, setLoading] = useState(false);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (!prompt.trim()) return;
-  
     setLoading(true);
   
-    const id = `pending-${Date.now()}`;
-    const placeholderReport = {
-      id,
+    const placeholder = {
+      id: `pending-${Date.now()}`,
       title: 'Generating...',
       content: '',
       loading: true,
     };
   
-    setReports([placeholderReport, ...reports]); // put at the top
+    setReports([placeholder, ...reports]);
   
-    setTimeout(() => {
-      const mockReport = {
+    try {
+      const content = await generateReportFromPrompt(prompt);
+      const generated = {
         id: Date.now().toString(),
-        title: `Mock Report - ${prompt.slice(0, 15)}...`,
-        content: `This is a generated report based on the prompt: "${prompt}"`,
+        title: `Report - ${prompt.slice(0, 20)}...`,
+        content,
       };
-  
-      setReports((prev: Report[]) =>
-        [mockReport, ...prev.filter((r: Report) => r.id !== id)]
+      setReports((prev) => [generated, ...prev.filter((r) => r.id !== placeholder.id)]);
+    } catch (err) {
+      console.error('OpenAI error:', err);
+      setReports((prev) =>
+        prev.map((r) =>
+          r.id === placeholder.id ? { ...r, title: 'Failed to generate', loading: false } : r
+        )
       );
-      
+    } finally {
       setPrompt('');
       setLoading(false);
-    }, 1500);
+    }
   };
   
-
 	return (
 		<Box display="flex" flexDirection="column" gap={2} mt={4}>
 			<TextField
