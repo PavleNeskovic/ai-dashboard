@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Editor } from '@tinymce/tinymce-react';
-import { useReportContext, Report } from '../context/ReportContext';
-import { useRole } from '../context/RoleContext';
-import { useActivity } from '../context/ActivityContext';
+import { useReportContext, Report } from '../../context/ReportContext';
+import { useRole } from '../../context/RoleContext';
+import { useActivity } from '../../context/ActivityContext';
 
 interface ReportFormProps {
 	initialData?: Report;
@@ -14,7 +14,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({ initialData, onClose }) 
   const { logActivity } = useActivity();
   const { role } = useRole();
   const isAdmin = role === 'Admin';
-	const { reports, setReports } = useReportContext();
+	const { setReports } = useReportContext();
 	const [title, setTitle] = useState(initialData?.title || '');
 	const [content, setContent] = useState(initialData?.content || '');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -101,20 +101,20 @@ export const ReportForm: React.FC<ReportFormProps> = ({ initialData, onClose }) 
       </Box>
 		</Box>
     <Dialog open={showDeleteConfirm} onClose={() => setShowDeleteConfirm(false)}>
-    <DialogTitle>Confirm Deletion</DialogTitle>
-    <DialogContent>
-      <Typography>
-        Are you sure you want to delete the report "
-        <strong>{initialData?.title}</strong>"? This action cannot be undone.
-      </Typography>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>
-      <Button color="error" variant="contained" onClick={handleDelete}>
-        Delete
-      </Button>
-    </DialogActions>
-  </Dialog>
+      <DialogTitle>Confirm Deletion</DialogTitle>
+      <DialogContent>
+        <Typography>
+          Are you sure you want to delete the report "
+          <strong>{initialData?.title}</strong>"? This action cannot be undone.
+        </Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>
+        <Button color="error" variant="contained" onClick={handleDelete}>
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
   </>
 	);
 };

@@ -4,24 +4,29 @@ import {
 	TextField,
 	CircularProgress,
 	IconButton,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useReportContext } from '../context/ReportContext';
-import { generateReportFromPrompt } from '../services/openaiService';
-import { useActivity } from '../context/ActivityContext';
+import { useReportContext } from '../../context/ReportContext';
+import { generateReportFromPrompt } from '../../services/openaiService';
+import { useActivity } from '../../context/ActivityContext';
 
 export const PromptInputBar = () => {
 	const { reports, setReports } = useReportContext();
-  const { logActivity } = useActivity();
+	const { logActivity } = useActivity();
 	const [prompt, setPrompt] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [errorOpen, setErrorOpen] = useState(false);
 
 	const handleGenerate = async () => {
 		if (!prompt.trim()) return;
 		setLoading(true);
 
+		const id = `pending-${Date.now()}`;
+
 		const placeholder = {
-			id: `pending-${Date.now()}`,
+			id,
 			title: 'Generating...',
 			content: '',
 			loading: true,
@@ -32,19 +37,18 @@ export const PromptInputBar = () => {
 		try {
 			const content = await generateReportFromPrompt(prompt);
 			const generated = {
-				id: Date.now().toString(),
+				id,
 				title: prompt,
 				content,
 			};
-			setReports((prev) => [generated, ...prev.filter((r) => r.id !== placeholder.id)]);
-      logActivity(`AI draft generated from prompt: "${prompt}"`);
+
+			setReports((prev) => [generated, ...prev.filter((r) => r.id !== id)]);
+			logActivity(`AI draft generated from prompt: "${prompt}"`);
 		} catch (err) {
 			console.error('OpenAI error:', err);
-			setReports((prev) =>
-				prev.map((r) =>
-					r.id === placeholder.id ? { ...r, title: 'Failed to generate', loading: false } : r
-				)
-			);
+
+			setReports((prev) => prev.filter((r) => r.id !== id));
+			setErrorOpen(true); // ✅ Show snackbar
 		} finally {
 			setPrompt('');
 			setLoading(false);
@@ -52,6 +56,7 @@ export const PromptInputBar = () => {
 	};
 
 	return (
+		<>
 			<Box position="relative">
 				<TextField
 					label="✦ Type a prompt to generate a draft report..."
@@ -80,5 +85,21 @@ export const PromptInputBar = () => {
 					{loading ? <CircularProgress size={20} /> : <ArrowForwardIcon />}
 				</IconButton>
 			</Box>
+
+			<Snackbar
+				open={errorOpen}
+				autoHideDuration={4000}
+				onClose={() => setErrorOpen(false)}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+			>
+				<Alert
+					severity="error"
+					variant="filled"
+					onClose={() => setErrorOpen(false)}
+				>
+					Failed to generate report. Please try again.
+				</Alert>
+			</Snackbar>
+		</>
 	);
 };

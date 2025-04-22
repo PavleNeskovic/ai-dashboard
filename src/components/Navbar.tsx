@@ -12,7 +12,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import ListIcon from '@mui/icons-material/List';
 import { useRole } from '../context/RoleContext';
-import { ActivityModal } from './ActivityModal';
+import { ActivityModal } from './modals/ActivityModal';
 
 
 export const Navbar = () => {
@@ -28,11 +28,16 @@ export const Navbar = () => {
 			<AppBar position="static" color="default" elevation={1}>
 				<Toolbar>
 					<Box flexGrow={1}>
-						<Typography variant="h6">AI Intelligence Dashboard</Typography>
+						<Typography variant="h6">AI Reports Dashboard</Typography>
 					</Box>
-					<IconButton onClick={handleMenu}>
-						<AccountCircle />
-					</IconButton>
+					<Box display="flex" alignItems="center" gap={1}>
+						<Typography variant="body2" color="text.secondary">
+							{role}
+						</Typography>
+						<IconButton onClick={handleMenu}>
+							<AccountCircle />
+						</IconButton>
+					</Box>
 					<Menu anchorEl={menuAnchor} open={Boolean(menuAnchor)} onClose={handleClose}>
 						<MenuItem disabled>Current Role: {role}</MenuItem>
 						<MenuItem onClick={() => { switchRole(); handleClose(); }}>

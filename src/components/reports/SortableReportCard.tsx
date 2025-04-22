@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Grid, IconButton, Tooltip } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { ReportCard } from './ReportCard';
-import { Report } from '../context/ReportContext';
+import { Report } from '../../context/ReportContext';
 
 interface SortableReportCardProps {
 	report: Report;
@@ -54,6 +54,7 @@ export const SortableReportCard: React.FC<SortableReportCardProps> = ({
 
 			<ReportCard
 				title={report.title}
+        loading={report.loading}
 				onEdit={() => onEdit(report)}
 				onSummarize={() => onSummarize(report)}
 			/>

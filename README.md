@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+# 🧠 AI Reports Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-enhanced, role-based reporting dashboard built with React, TypeScript, and Material UI — featuring OpenAI integration, drag-and-drop report organization, and rich-text editing via TinyMCE.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- 🔐 **Role-based access**:  
+  - `Admin`: Can create, edit, delete reports  
+  - `Viewer`: Read-only access with AI summaries
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 📋 **Report Management**:  
+  - Create and edit rich-text reports  
+  - Reorder reports with drag-and-drop (`dnd-kit`)  
+  - Search by title  
+  - Delete with confirmation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 🤖 **AI Integration (OpenAI)**:  
+  - Generate full reports from prompts  
+  - Summarize report content  
+  - Error handling with graceful fallbacks
 
-### `npm test`
+- 🕵️‍♂️ **Activity Tracking**:  
+  - Logs creation, edits, AI usage, and deletions  
+  - Viewable via the top-right Activity Tracker
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 💾 **Local Persistence**:  
+  - All data stored in `localStorage`  
+  - Role, reports, and activity log retained on refresh
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## ⚙️ Setup Instructions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone https://github.com/PavleNeskovic/ai-dashboard
+cd ai-dashboard
+```
+### 2. Install dependencies
+```bash
+npm install
+```
+### 3. Add environment variables
 
-### `npm run eject`
+Create a .env file in the root of the project with the following:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+REACT_APP_TINYMCE_API_KEY=your-tinymce-api-key
+REACT_APP_OPENAI_API_KEY=your-openai-api-key
+```
+You can get keys from:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🔑 TinyMCE Cloud (free account)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+🔑 OpenAI
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+⚠️ For local development only — do not expose these keys in production.
 
-## Learn More
+## 🚀 Run the app
+This project uses Create React App.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm start
+```
+Then visit http://localhost:3000 in your browser.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🧱 Stack
+
+React + TypeScript
+
+Material UI (MUI)
+
+dnd-kit for drag-and-drop
+
+TinyMCE for rich-text editing
+
+OpenAI API for report generation & summarization
+
+React Context API for state management
+
+## 📁 Project Structure
+```bash
+
+src/
+├── components/         # UI components (modals, cards, toolbar)
+├── context/            # Context providers for roles, reports, activity
+├── services/           # OpenAI API abstraction
+├── App.tsx             # Root component
+└── index.tsx           # Entry point
+```
+
+## 🧩 Notes
+Admins can create/edit/delete — viewers are read-only
+
+No backend required — everything runs client-side and persists via localStorage
+
+AI actions are logged and visible under “Activity Tracker” in the navbar

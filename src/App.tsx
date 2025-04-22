@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { Report, ReportProvider, useReportContext } from './context/ReportContext';
+import { useState } from 'react';
+import { Report, ReportProvider } from './context/ReportContext';
 import { RoleProvider, useRole } from './context/RoleContext';
-import { Container, Typography, Box, Divider } from '@mui/material';
-import { PromptInputBar } from './components/PromptInputBar';
-import { ReportGrid } from './components/ReportGrid';
-import { ReportForm } from './components/ReportForm';
-import { ReportToolbar } from './components/ReportToolbar';
-import { SortableReportGrid } from './components/SortableReportGrid';
-import { SummaryModal } from './components/SummaryModal';
+import { Container, Box, Divider } from '@mui/material';
+import { PromptInputBar } from './components/reports/PromptInputBar';
+import { ReportForm } from './components/reports/ReportForm';
+import { ReportToolbar } from './components/reports/ReportToolbar';
+import { SortableReportGrid } from './components/reports/SortableReportGrid';
+import { SummaryModal } from './components/modals/SummaryModal';
 import { Navbar } from './components/Navbar';
 import { ActivityProvider } from './context/ActivityContext';
 

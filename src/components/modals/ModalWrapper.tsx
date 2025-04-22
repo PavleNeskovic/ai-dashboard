@@ -5,16 +5,22 @@ import {
 	Paper,
 	Typography,
 	IconButton,
-	List,
-	ListItem,
-	ListItemText,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useActivity } from '../context/ActivityContext';
 
-export const ActivityModal: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
-	const { activityLog } = useActivity();
+interface ModalWrapperProps {
+	open: boolean;
+	onClose: () => void;
+	title: string;
+	children: React.ReactNode;
+}
 
+export const ModalWrapper: React.FC<ModalWrapperProps> = ({
+	open,
+	onClose,
+	title,
+	children,
+}) => {
 	return (
 		<Modal open={open} onClose={onClose}>
 			<Box
@@ -25,25 +31,16 @@ export const ActivityModal: React.FC<{ open: boolean; onClose: () => void }> = (
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					width: '80%',
-					p: 3,
+					p: 4,
 				}}
 			>
 				<Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-					<Typography variant="h6">Activity Log</Typography>
+					<Typography variant="h6">{title}</Typography>
 					<IconButton onClick={onClose}>
 						<CloseIcon />
 					</IconButton>
 				</Box>
-				<List>
-					{activityLog.map((entry, i) => (
-						<ListItem key={i} dense>
-							<ListItemText
-								primary={entry.message}
-								secondary={entry.timestamp}
-							/>
-						</ListItem>
-					))}
-				</List>
+				{children}
 			</Box>
 		</Modal>
 	);

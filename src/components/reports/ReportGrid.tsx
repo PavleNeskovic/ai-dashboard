@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
-import { Report } from '../context/ReportContext';
+import { Report } from '../../context/ReportContext';
 import { SortableReportCard } from './SortableReportCard';
+
 
 interface ReportGridProps {
 	reports: Report[];
