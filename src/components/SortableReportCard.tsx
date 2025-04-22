@@ -36,23 +36,21 @@ export const SortableReportCard: React.FC<SortableReportCardProps> = ({
 			ref={setNodeRef}
 			style={style}
 		>
-      <Tooltip title="Drag to reorder">
-        <IconButton
-          {...attributes}
-          {...listeners}
-          sx={{
-            position: 'absolute',
-            top: 4,
-            left: 4,
-            zIndex: 1,
-            cursor: 'grab',
-            backgroundColor: 'white',
-          }}
-          size="small"
-        >
-          <DragIndicatorIcon fontSize="small" />
-        </IconButton>
-      </Tooltip>
+    <IconButton
+      {...attributes}
+      {...listeners}
+      sx={{
+        position: 'absolute',
+        top: 10,
+        left: 4,
+        zIndex: 1,
+        cursor: 'grab',
+        backgroundColor: 'white',
+      }}
+      size="small"
+    >
+      <DragIndicatorIcon fontSize="small" />
+    </IconButton>
 
 			<ReportCard
 				title={report.title}

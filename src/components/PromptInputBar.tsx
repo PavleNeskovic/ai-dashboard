@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
 	Box,
 	TextField,
 	CircularProgress,
 	IconButton,
-	Paper,
-	Divider,
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useReportContext } from '../context/ReportContext';

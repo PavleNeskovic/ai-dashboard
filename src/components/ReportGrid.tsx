@@ -22,7 +22,7 @@ export const ReportGrid: React.FC<ReportGridProps> = ({
     )}
     <Grid container spacing={2} mt={4}>
       {reports.map((report) => (
-        <Grid size={{ xs: 12, sm: 3 }} key={report.id}>
+        <Grid size={{ xs: 12, sm: 6 }} key={report.id}>
         <SortableReportCard
           key={report.id}
           report={report}
