@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ReportProvider, useReportContext } from './context/ReportContext';
+import { Container, Typography, Box } from '@mui/material';
+import { PromptInputBar } from './components/PromptInputBar';
+import { ReportGrid } from './components/ReportGrid';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const Dashboard = () => {
+	const { reports } = useReportContext();
+
+	return (
+		<Box mt={4}>
+			<PromptInputBar />
+      <ReportGrid />
+		</Box>
+	);
+};
+
+const App = () => {
+	return (
+		<ReportProvider>
+			<Container maxWidth="md">
+				<Dashboard />
+			</Container>
+		</ReportProvider>
+	);
+};
 
 export default App;
