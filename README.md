@@ -3,6 +3,10 @@
 An AI-enhanced, role-based reporting dashboard built with React, TypeScript, and Material UI — featuring OpenAI integration, drag-and-drop report organization, and rich-text editing via TinyMCE.
 
 ---
+## 🌐 Live Demo
+
+The project is deployed and can be accessed at [AI Reports Dashboard](https://ai-dashboard-q8j1.onrender.com/). Explore the features and functionality live in your browser.
+
 
 ## ✨ Features
 
