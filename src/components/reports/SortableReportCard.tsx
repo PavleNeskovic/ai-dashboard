@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Container, Grid, IconButton } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { ReportCard } from './ReportCard';
 import { Report } from '../../context/ReportContext';
@@ -26,17 +26,16 @@ export const SortableReportCard: React.FC<SortableReportCardProps> = ({
     isDragging,
   } = useSortable({
     id: report.id,
-    // Add these properties to improve mobile handling
-    animateLayoutChanges: () => false, // Prevent layout shifts during drag
+    animateLayoutChanges: () => false,
   });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     position: 'relative' as const,
-    zIndex: isDragging ? 1000 : 1, // Ensure dragging item appears on top
-    touchAction: 'none', // Disable browser touch actions that might interfere
-    userSelect: 'none' as const, // Prevent text selection during drag
+    zIndex: isDragging ? 1000 : 1,
+    touchAction: 'none',
+    userSelect: 'none' as const,
   };
 
   return (
@@ -58,12 +57,11 @@ export const SortableReportCard: React.FC<SortableReportCardProps> = ({
           '&:active': {
             cursor: 'grabbing',
           },
-          // Increase touch target size for mobile
           touchAction: 'none',
         }}
         size="small"
-        disableRipple // Prevent ripple effect which can interfere with drag
-        disableTouchRipple // Disable touch ripple
+        disableRipple
+        disableTouchRipple
       >
         <DragIndicatorIcon fontSize="small" />
       </IconButton>

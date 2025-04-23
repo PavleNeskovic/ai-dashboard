@@ -102,3 +102,8 @@ Admins can create/edit/delete — viewers are read-only
 No backend required — everything runs client-side and persists via localStorage
 
 AI actions are logged and visible under “Activity Tracker” in the navbar
+
+## 🐞 Known Issues
+
+- On iOS Safari 18.4, the text label of the prompt input is not displayed correctly. This is a known issue and is being investigated for a future fix.
+

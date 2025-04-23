@@ -39,7 +39,7 @@ export const ReportCard: React.FC<ReportCardProps> = ({
         pl: 7,
 			}}
 		>
-			{/* Left: Title or Loading */}
+
 			{loading ? (
 				<Box display="flex" alignItems="center" justifyContent="center" flexGrow={1}>
 					<CircularProgress size={20} />
@@ -50,7 +50,7 @@ export const ReportCard: React.FC<ReportCardProps> = ({
 				</Typography>
 			)}
 
-			{/* Right: Action buttons */}
+
 			{!loading && (
 				<Box display="flex" gap={1}>
 					<Tooltip title="Summarize Report">

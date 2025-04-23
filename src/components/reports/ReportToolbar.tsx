@@ -27,12 +27,11 @@ export const ReportToolbar: React.FC<ReportToolbarProps> = ({
 			flexWrap="wrap"
 			gap={2}
 		>
-			{/* Left side: Title */}
+
 			<Typography variant="h6" fontWeight={500}>
 				Reports:
 			</Typography>
 
-			{/* Right side: Search and Add */}
 			<Box display="flex" alignItems="center" gap={2}>
 				<TextField
 					size="small"
