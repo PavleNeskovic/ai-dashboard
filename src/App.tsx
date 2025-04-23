@@ -34,13 +34,13 @@ const Dashboard = () => {
             <>
               <PromptInputBar />
               <Divider sx={{ my: 6 }} />
-              <ReportToolbar
-                onAdd={() => setEditReport({ id: '', title: '', content: '' })}
-                searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
-              />
             </>
           )}
+					<ReportToolbar
+						onAdd={() => setEditReport({ id: '', title: '', content: '' })}
+						searchTerm={searchTerm}
+						onSearchChange={setSearchTerm}
+					/>
 					<SortableReportGrid
 						searchTerm={searchTerm}
 						onEdit={(r) => setEditReport(r)}
