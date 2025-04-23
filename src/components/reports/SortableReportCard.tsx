@@ -41,11 +41,11 @@ export const SortableReportCard: React.FC<SortableReportCardProps> = ({
       {...listeners}
       sx={{
         position: 'absolute',
-        top: 10,
-        left: 4,
         zIndex: 1,
         cursor: 'grab',
         backgroundColor: 'white',
+				width: 50,
+				height: 50,
       }}
       size="small"
     >

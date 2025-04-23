@@ -36,7 +36,7 @@ export const ReportCard: React.FC<ReportCardProps> = ({
 				alignItems: 'center',
 				justifyContent: 'space-between',
 				px: 2,
-        pl: 5,
+        pl: 7,
 			}}
 		>
 			{/* Left: Title or Loading */}
